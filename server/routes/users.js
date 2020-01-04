@@ -5,7 +5,7 @@ var Goods = require('../models/goods');
 var Auser = require('../models/user');
 
 //连接MongoDB数据库
-mongoose.connect('mongodb://127.0.0.1:27017/shop',{useNewUrlParser:true});
+mongoose.connect('mongodb://127.0.0.1:27017/taobao',{useNewUrlParser:true});
 
 mongoose.connection.on("connected",function(){
   console.log("连接数据库成功");
@@ -57,6 +57,35 @@ router.post("/login",function(req,res,next){
 router.get("/yo",function(req,res,next){
   console.log("bubu");
   res.send("xixi");
+});
+
+router.get("/checkLogin",function(req,res,next){
+  console.log("000");
+  var param={
+    name:req.body.name,
+    pwd:req.body.pwd
+  };
+  Auser.findOne(param,function(err,doc){
+    console.log("111");
+    if(err){
+      res.json({
+        status:'1',
+        msg:"错啦"
+      })
+    }
+    else{
+      if(doc){
+        // req.session.user=doc;
+        res.json({
+          status:'0',
+          msg:'',
+          result:{
+            state:'ok'
+          }
+        })
+      }
+    }
+  })
 });
 
 module.exports = router;

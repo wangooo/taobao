@@ -5,7 +5,12 @@ import Cart from '@/views/Cart'
 import Try from '@/views/Try'
 import Oo from '@/views/Oo'
 import Gg from '@/views/Gg'
-import Login from '@/views/login'
+import Login from '@/views/Login'
+import Home from '@/views/Home'
+import MyShop from '@/views/MyShop'
+import ShopManage from '@/views/ShopManage'
+import Access from '@/views/Access'
+
 
 Vue.use(Router)
 
@@ -26,6 +31,27 @@ export default new Router({
       name:'Login',
       component:Login
     },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
+    },
+    {
+      path: '/access',
+      name: 'Access',
+      component: Access,
+    },
+    {
+      path: '/myShop',
+      name: 'MyShop',
+      component: MyShop,
+    },
+    {
+      path: '/shopManage',
+      name: 'ShopManage',
+      component: ShopManage,
+    },
+    
     {
       path:'/try',
       name:'Try',
