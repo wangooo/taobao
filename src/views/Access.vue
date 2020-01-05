@@ -1,5 +1,22 @@
 <template>
     <div>
+       <el-autocomplete
+   class="search"
+  popper-class="my-autocomplete"
+  v-model="state"
+  :fetch-suggestions="querySearch"
+  placeholder="请输入内容"
+  @select="handleSelect">
+  <i
+    class="el-icon-edit el-input__icon"
+    slot="suffix"
+    @click="handleIconClick">
+  </i>
+  <template slot-scope="{ item }">
+    <div class="name">{{ item.value }}</div>
+    <span class="addr">{{ item.address }}</span>
+  </template>
+</el-autocomplete>
         <el-table
     :data="tableData"
     border
@@ -40,20 +57,40 @@
       </template>
     </el-table-column>
   </el-table> 
-  
 </div>
 </template>
-    
-<style>
+   
+<style scoped>
   .el-header {
     background-color: #B3C0D1;
-    color: #333;
+    color: rgb(12, 10, 10);
     line-height: 60px;
   }
   
   .el-aside {
     color: #333;
   }
+
+  .my-autocomplete {
+    line-height: normal;
+  padding:7px;
+  }
+
+
+    .name {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .addr {
+      font-size: 12px;
+      color: #b4b4b4;
+    }
+
+    .highlighted .addr {
+      color: #ddd;
+    }
+
+
 </style>
    
 <script>
@@ -64,12 +101,14 @@ export default {
     data() {
       return {
         tableData: [{
+           age:'5',
           name:'张三',
-          age:'5',
+         
           address: '上海市普陀区金沙江路 1518 弄'
         }, {
+          
           name: '李四',
-          age: '6',
+          
           address: '上海市普陀区金沙江路 1517 弄'
         }, {
           date: '2016-05-01',
@@ -82,18 +121,16 @@ export default {
         }]
       }
     },
+    
     methods: {},
     created(){
-      axios.get('/user/getUsers').then((response)=>{
-              let res=response.data;
-              if(res.status=='0'){
-                console.log("见成果了");
-                this.getCardList();
-              }
-            });
+    //   axios.get('/user/getUsers').then((response)=>{
+    //           let res=response.data;
+    //           if(res.status=='0'){
+    //             console.log("见成果了");
+    //             this.getCardList();
+    //           }
+    //         });
     }
 };
 </script>
-
-<style scoped>
-</style>

@@ -25,7 +25,7 @@
                         </el-submenu>
 
                             <i class="el-icon-menu"></i>
-                    <el-menu-item index="3" @click="goto('access')">
+                    <el-menu-item index="3" >
                         
                         <!-- <span slot="title">权限管理</span>
                         <el-menu-item-group>
@@ -42,8 +42,8 @@
     <!-- </template> -->
     <el-menu-item-group>
       
-      <el-menu-item index="1-1">管理员管理</el-menu-item>
-      <el-menu-item index="1-2">店主管理</el-menu-item>
+      <el-menu-item index="1-1"  @click="goto('Access')">管理员管理</el-menu-item>
+      <el-menu-item index="1-2" @click="goto('Shopkeeper')">店主管理</el-menu-item>
     </el-menu-item-group>
     </el-submenu>
                     </el-menu-item>
@@ -75,6 +75,6 @@ export default {
 
 <style scoped>
 .tac {
-    /* width: 100%; */
+     width: 100%; 
 }
 </style>

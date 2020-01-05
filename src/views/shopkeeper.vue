@@ -28,8 +28,8 @@
       fixed="right"
       label="操作"
       width="100">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">添加</el-button>
+      <template>
+        <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">添加</el-button> -->
         <el-button type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
@@ -58,24 +58,12 @@ export default {
     data() {
       return {
         tableData: [{
-          name:'张三',
-          age:'5',
+          name:'zyf',
+          Nshops:'5',
+          city:'上海',
           address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          name: '李四',
-          age: '6',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
-      }
-    },
+      }]
+      }},
     methods: {},
     created(){
       axios.get('/user/getUsers').then((response)=>{
