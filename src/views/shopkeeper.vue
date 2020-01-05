@@ -5,19 +5,13 @@
     border
     style="width: 100%">
     <el-table-column
-      fixed
-      prop="date"
-      label="工作年限"
-      width="150">
-    </el-table-column>
-    <el-table-column
       prop="name"
       label="姓名"
       width="120">
     </el-table-column>
     <el-table-column
-      prop="province"
-      label="工作地省份"
+      prop="Nshops"
+      label="店铺数量"
       width="120">
     </el-table-column>
     <el-table-column
