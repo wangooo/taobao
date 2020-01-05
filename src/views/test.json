@@ -1,0 +1,53 @@
+{
+    "id": "1",
+    "shopname": "小王商店",
+    "order": "wsy",
+    "desc": "a cute shop",
+    "createTime": "20201020",
+    "kind": "life",
+    "score": "80",
+    "fans": [
+        {
+            "id": "001",
+            "name": "wsy",
+            "score": "30",
+            "rate": "40%",
+            "sex": "男",
+            "state": true
+        },
+        {
+            "id": "002",
+            "name": "hh",
+            "score": "30",
+            "rate": "40%",
+            "sex": "男",
+            "state": true
+        }
+    ],
+    "goods":[{
+        "productId": "100002",
+    "productName": "戴森",
+    "salePrice": 1088,
+    "productImage": "6.jpg"
+    },{
+        "productId": "100003",
+    "productName": "士力架",
+    "salePrice": 50,
+    "productImage": "7.jpg"
+    },{
+        "productId": "100005",
+    "productName": "switch",
+    "salePrice": 2000,
+    "productImage": "9.jpg"
+    },{
+        "productId": "100012",
+    "productName": "exore",
+    "salePrice": 2212,
+    "productImage": "1.jpg"
+    },{
+        "productId": "10002",
+    "productName": "索尼",
+    "salePrice": 3,
+    "productImage": "2.jpg"
+    }]
+}

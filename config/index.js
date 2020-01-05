@@ -22,6 +22,12 @@ module.exports = {
       },
       '/user/*':{
         target:'http://localhost:3000'
+      },
+      '/shop':{
+        target:'http://localhost:3000'
+      },
+      '/shop/*':{
+        target:'http://localhost:3000'
       }
 
     },

@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Goods = require('../models/goods');
-var Auser = require('../models/user');
+var Ashop = require('../models/shops');
 
 //连接MongoDB数据库
 mongoose.connect('mongodb://127.0.0.1:27017/taobao', {
@@ -21,69 +20,27 @@ mongoose.connection.on("disconnected", function () {
   console.log("disconnected")
 });
 
-console.log("-1");
-
-router.post("/login", function (req, res, next) {
-  console.log("000");
-  var param = {
-    userName: req.body.tuserName,
-    userPwd: req.body.tuserPwd
+router.get("/getMyShop", function (req, res, next) {
+  let param = {
+    order: req.query.order
   };
-  Auser.findOne(param, function (err, doc) {
-    console.log("111");
-    if (err) {
-      res.json({
-        status: '1',
-        msg: "错啦"
-      })
-    } else {
-      if (doc) {
-        res.cookie("userId", doc.userId, {
-          path: '/',
-          maxAge: 1000 * 60 * 60
-        });
-        // req.session.user=doc;
-        res.json({
-          status: '0',
-          msg: '',
-          result: {
-            userName: doc.userName
-          }
-        })
+  Ashop.find({order:"wsy"}).then(ress=>{
+    res.json({
+      status: '0',
+      msg: '',
+      result: {
+        list: ress
       }
-    }
+    })
   })
 });
 
-router.get("/yo", function (req, res, next) {
-  console.log("bubu");
-  res.send("xixi");
-});
-
-router.get("/checkLogin", function (req, res, next) {
-  console.log("000");
-  var param = {
-    name: req.body.name,
-    pwd: req.body.pwd
-  };
-  Auser.findOne(param, function (err, doc) {
-    console.log("111");
-    if (err) {
-      res.json({
-        status: '1',
-        msg: "错啦"
-      })
-    } else {
-      if (doc) {
-        // req.session.user=doc;
-        res.json({
-          status: '0',
-          msg: '',
-          result: {
-            state: 'ok'
-          }
-        })
-      }
+router.get("/test", function (req, res, next) {
+  res.json({
+    status: '0',
+    msg: '',
+    result: {
+      state: 'ok'
     }
   })
 });
