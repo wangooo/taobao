@@ -10,7 +10,7 @@ import Home from '@/views/Home'
 import MyShop from '@/views/MyShop'
 import ShopManage from '@/views/ShopManage'
 import Access from '@/views/Access'
-
+import GoodForm from '@/views/Goodform'
 
 Vue.use(Router)
 
@@ -51,7 +51,11 @@ export default new Router({
       name: 'ShopManage',
       component: ShopManage,
     },
-    
+    {
+      path: '/goodform',
+      name: 'GoodForm',
+      component: GoodForm,
+    },
     {
       path:'/try',
       name:'Try',
