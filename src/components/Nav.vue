@@ -17,8 +17,26 @@
                         <span slot="title">店铺管理</span>
                     </el-menu-item>
                     <el-menu-item index="3" @click="goto('access')">
-                        <i class="el-icon-document"></i>
-                        <span slot="title">权限管理</span>
+                        
+                        <!-- <span slot="title">权限管理</span>
+                        <el-menu-item-group>
+                            <el-menu-item index="1-1">管理员管理</el-menu-item>
+                             <el-menu-item index="1-2">店主管理</el-menu-item>
+                            
+                                </el-menu-item-group>
+                    </el-menu-item> -->
+                     <el-submenu index="1">
+    <!-- <template slot="title">
+      <i class="el-icon-location"></i> -->
+      
+      <span slot="title">权限管理</span>
+    <!-- </template> -->
+    <el-menu-item-group>
+      
+      <el-menu-item index="1-1">管理员管理</el-menu-item>
+      <el-menu-item index="1-2">店主管理</el-menu-item>
+    </el-menu-item-group>
+    </el-submenu>
                     </el-menu-item>
                     <!-- <el-menu-item index="4">
                         <i class="el-icon-setting"></i>

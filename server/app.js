@@ -25,32 +25,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req,res,next){
-  console.log("originalUrl is "+req.originalUrl);
-  var flagg=parseInt(req.originalUrl.indexOf('/goods'));
-  var reqUrl=req.originalUrl;
-  console.log(flagg);
-  // next();
-  if(req.cookies.userId){
-    console.log("mmm");
-    next();
-  }
-  else{
-    console.log("else");
-    if(reqUrl=='/goods/login'||reqUrl=='/goods/logout'||parseInt(reqUrl.indexOf('/goods/list'))>-1){
-      console.log("nnn");
-      next();
-    }
-    else{
-      console.log("9090");
-      res.json({
-        status:'10001',
-        msg:'当前未登陆',
-        result:''
-      });
-    }
-  }
-})
+// app.use(function(req,res,next){
+//   console.log("originalUrl is "+req.originalUrl);
+//   var flagg=parseInt(req.originalUrl.indexOf('/goods'));
+//   var reqUrl=req.originalUrl;
+//   console.log(flagg);
+//   // next();
+//   if(req.cookies.userId){
+//     console.log("mmm");
+//     next();
+//   }
+//   else{
+//     console.log("else");
+//     if(reqUrl=='/goods/login'||reqUrl=='/goods/logout'||parseInt(reqUrl.indexOf('/goods/list'))>-1){
+//       console.log("nnn");
+//       next();
+//     }
+//     else{
+//       console.log("9090");
+//       res.json({
+//         status:'10001',
+//         msg:'当前未登陆',
+//         result:''
+//       });
+//     }
+//   }
+// })
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/goods', showGoods);

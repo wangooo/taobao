@@ -54,9 +54,14 @@ router.post("/login",function(req,res,next){
   })
 });
 
-router.get("/yo",function(req,res,next){
-  console.log("bubu");
-  res.send("xixi");
+router.get("/getUsers",function(req,res,next){
+  res.json({
+    status:'0',
+    msg:'',
+    result:{
+      list:[1,2,3]
+    }
+  })
 });
 
 router.get("/checkLogin",function(req,res,next){
