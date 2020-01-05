@@ -1,26 +1,27 @@
 <template>
   <div>
-    <nav-header></nav-header>
+    <!-- <nav-header></nav-header>
     <nav-bread>
       <span slot="bread">Goods!</span>
       <span slot="test">and try</span>
-    </nav-bread>
+    </nav-bread> -->
     <div class="accessory-result-page accessory-page">
       <div class="container">
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
-          <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" class="price" @click="sortChange">
-            Price
-            <svg class="icon icon-arrow-short">
+          <a href="javascript:void(0)" class="default cur" @click="sortChange(true)">已上架</a>
+          <a href="javascript:void(0)" class="price" @click="sortChange(false)">
+            待上架
+            <!-- <svg class="icon icon-arrow-short">
               <use xlink:href="#icon-arrow-short"></use>
-            </svg>
+            </svg> -->
           </a>
           <a href="javascript:void(0)" class="filterby stopPop" @click="showright">Filter by</a>
         </div>
         <div class="accessory-result">
           <!-- filter -->
           <div class="filter stopPop" id="filter" v-bind:class="{'filterby-show':filters_by_show}">
+            <el-button type="warning" style="margin:20px 0;width:200px" @click="addGood">添加商品</el-button>
             <dl class="filter-price">
               <dt>Price:</dt>
               <dd>
@@ -54,11 +55,14 @@
                     <div class="name">{{item.productName}}</div>
                     <div class="price">{{item.salePrice}}</div>
                     <div class="btn-area">
-                      <a
+                      <!-- <a
                         href="javascript:;"
                         class="btn btn--m"
                         @click="addCart(item.productId)"
-                      >加入购物车</a>
+                      >加入购物车</a> -->
+                      <el-button type="primary" style="width:45%" @click="editGood">编辑</el-button>
+                      <el-button type="danger" style="width:45%" v-if="goodsState">下架</el-button>
+                      <el-button type="danger" style="width:45%" v-else>上架</el-button>
                     </div>
                   </div>
                 </li>
@@ -122,7 +126,8 @@ export default {
       pageSize: 8,
       sortFlag: true,
       busy: true,
-      loading: false
+      loading: false,
+      goodsState: true
     };
   },
   components: {
@@ -134,6 +139,12 @@ export default {
     this.getGoodsList();
   },
   methods: {
+    addGood(){
+      this.$router.push({path:'/goodForm'})
+    },
+    editGood(){
+      this.$router.push({path:'/goodForm'})
+    },
     getGoodsList(flag) {
       this.loading = true;
       let pa = {
@@ -188,10 +199,16 @@ export default {
         (this.page = 1),
         this.getGoodsList();
     },
-    sortChange() {
-      this.sortFlag = !this.sortFlag;
-      this.page = 1;
-      this.getGoodsList();
+    sortChange(flag) {
+      if(flag){
+        this.goodsState = true;
+      }
+      else{
+        this.goodsState = false;
+      }
+      // this.sortFlag = !this.sortFlag;
+      // this.page = 1;
+      // this.getGoodsList();
     },
     loadMore() {
       this.busy = true;
