@@ -10,6 +10,7 @@ import Home from '@/views/Home'
 import MyShop from '@/views/MyShop'
 import ShopManage from '@/views/ShopManage'
 import Access from '@/views/Access'
+import Audit from '@/views/Audit'
 
 
 Vue.use(Router)
@@ -50,6 +51,11 @@ export default new Router({
       path: '/shopManage',
       name: 'ShopManage',
       component: ShopManage,
+    },
+    {
+      path: '/Audit',
+      name: 'Audit',
+      component: Audit,
     },
     
     {
