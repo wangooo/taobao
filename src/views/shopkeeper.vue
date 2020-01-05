@@ -28,9 +28,9 @@
       fixed="right"
       label="操作"
       width="100">
-      <template>
-        <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">添加</el-button> -->
-        <el-button type="text" size="small">删除</el-button>
+      <template slot-scope="scope">
+        <el-button @click="shanchu(scope.row)" type="text" size="small">删除</el-button> 
+        <!-- <el-button type="text" size="small">删除</el-button> -->
       </template>
     </el-table-column>
   </el-table> 
@@ -64,17 +64,35 @@ export default {
           address: '上海市普陀区金沙江路 1518 弄'
       }]
       }},
-    methods: {},
-    created(){
-      axios.get('/user/getUsers').then((response)=>{
-              let res=response.data;
-              if(res.status=='0'){
-                console.log("见成果了");
-                this.getCardList();
-              }
-            });
+       methods:{
+        shanchu(){
+            alert('确定删除吗？')
+        }
+    },
+    computed:{
+        searchData(){
+            if(this.fans){
+                return this.tableData.filter((value)=>{  //过滤数组元素
+                    return value.name.includes(this.shopkeepers); //如果包含字符返回true
+                });
+            }
+            else{
+                return this.tableData;
+            }
+        }
     }
 };
+//     methods: {},
+//     created(){
+//       axios.get('/user/getUsers').then((response)=>{
+//               let res=response.data;
+//               if(res.status=='0'){
+//                 console.log("见成果了");
+//                 this.getCardList();
+//               }
+//             });
+//     }
+// };
 </script>
 
 <style scoped>
