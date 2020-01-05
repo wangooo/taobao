@@ -1,18 +1,18 @@
 <template>
     <div class="flex">
         <div class="good" v-for="(item,index) in shopLists" :key="index">
-            <img class="shop-img" :src="item.picImg" />
-            <div class="shop-name">{{item.shopName}}</div>
+            <img class="shop-img" :src="'../../static/'+item.pic" />
+            <div class="shop-name">{{item.shopname}}</div>
             <div>
                 <el-button type="primary" round @click="goods(item.id)">商品管理</el-button>
                 <el-button round @click="fans(item.id)">粉丝管理</el-button>
             </div>
             <div class="shop-edit">
-                <el-button type="success" icon="el-icon-edit" circle></el-button>
+                <el-button type="success" icon="el-icon-edit" circle @click="addShop"></el-button>
             </div>
         </div>
         <!-- <div> -->
-            <el-button type="danger" plain class="add-shop">申请店铺</el-button>
+        <el-button type="danger" plain class="add-shop" @click="addShop">申请店铺</el-button>
         <!-- </div> -->
     </div>
 </template>
@@ -38,7 +38,7 @@ export default {
                 {
                     picImg: "../../static/3.jpg",
                     shopName: "小X的店铺",
-                    id:"003"
+                    id: "003"
                 },
                 {
                     picImg: "../../static/3.jpg",
@@ -48,12 +48,29 @@ export default {
         };
     },
     methods: {
-        goods(shopId){
-            this.$router.push({path:'/'})
+        goods(shopId) {
+            this.$router.push({ path: "/" });
+        },
+        fans(id) {
+            this.$router.push({ path: "/fans" });
+        },
+        addShop() {
+            this.$router.push({ path: "/addshop" });
+        },
+        getShops() {
+            let order = "wsy";
+            axios
+                .get("/shop/getMyShop", {params:{
+                    order:'wsy'
+                }})
+                .then(res => {
+                    this.shopLists = res.data.result.list
+                    console.log(res);
+                });
         }
     },
     created() {
-        this.checkAccess();
+        this.getShops();
     }
 };
 </script>
