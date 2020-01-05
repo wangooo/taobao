@@ -4,7 +4,7 @@
             <img class="shop-img" :src="'../../static/'+item.pic" />
             <div class="shop-name">{{item.shopname}}</div>
             <div>
-                <el-button type="primary" round @click="goods(item.id)">商品管理</el-button>
+                <el-button type="primary" round @click="goods(item.id,item.goods)">商品管理</el-button>
                 <el-button round @click="fans(item.id)">粉丝管理</el-button>
             </div>
             <div class="shop-edit">
@@ -48,8 +48,8 @@ export default {
         };
     },
     methods: {
-        goods(shopId) {
-            this.$router.push({ path: "/" });
+        goods(shopId,goods) {
+            this.$router.push({ path: "/"});
         },
         fans(id) {
             this.$router.push({ path: "/fans" });

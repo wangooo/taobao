@@ -11,11 +11,17 @@ import MyShop from '@/views/MyShop'
 import ShopManage from '@/views/ShopManage'
 import Access from '@/views/Access'
 import Audit from '@/views/Audit'
+import Shopkeeper from '@/views/Shopkeeper'
 import GoodForm from '@/views/goodForm'
 import Fans from '@/views/fans'
 import AddShop from '@/views/AddShop'
 
 Vue.use(Router)
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default new Router({
   routes: [
@@ -68,6 +74,11 @@ export default new Router({
       path: '/Audit',
       name: 'Audit',
       component: Audit,
+    },
+    {
+      path: '/shopkeeper',
+      name: 'Shopkeeper',
+      component: Shopkeeper,
     },
     {
       path: '/fans',
