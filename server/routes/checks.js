@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Ashop = require('../models/shops');
+var Bshop = require('../models/checks');
 
 //连接MongoDB数据库
 mongoose.connect('mongodb://127.0.0.1:27017/taobao', {
@@ -20,31 +20,17 @@ mongoose.connection.on("disconnected", function () {
   console.log("disconnected")
 });
 
-router.get("/getMyShop", function (req, res, next) {
-  let param = {
-    order: req.query.order
-  };
-  Ashop.find({order:"wsy"}).then(ress=>{
-    res.json({
-      status: '0',
-      msg: '',
-      result: {
-        list: ress
-      }
-    })
-  })
-});
-router.get("/getShop",function(req,res,next){
-    Ashop.find({}).then(ress=>{
-        console.log(ress);
+router.get("/getNewShop",function(req,res,next){
+    Bshop.find({}).then(ress=>{
         res.json({
-            shopname:'',
-            order:'',
-            kind:'',
-            score:'',
-            result:{
-                list: ress
-            }
+              order: '',
+              desc: '',
+              credit: '',
+              applytime: '',
+              newShop: '',
+              result:{
+                  list:ress
+              }
         })
     })
 });

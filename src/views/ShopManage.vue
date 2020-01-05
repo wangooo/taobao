@@ -14,7 +14,7 @@
       width="150">
     </el-table-column>
     <el-table-column
-      prop="ordername"
+      prop="order"
       label="店主"
       width="120">
     </el-table-column>
@@ -24,12 +24,12 @@
       width="120">
     </el-table-column>
     <el-table-column
-      prop="credit"
+      prop="score"
       label="信用"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="fans"
+      prop="fanss"
       label="粉丝量"
       width="180">
     </el-table-column>
@@ -59,44 +59,47 @@
     data(){
       return{
         input3:'',
-        shopList:[{
-          shopname:'1',
-        ordername:'2',
-        kind:'3',
-        level:'4',
-        credit:'5',
-        fans:'10'
-        },
-        {
-          shopname:'6',
-        ordername:'7',
-        kind:'8',
-        level:'9',
-        credit:'10',
-        fans:'10'
-        }
+        shopList:[
+           {
+             shopname:'',
+             order:'',
+             kind:'',
+             score:'',
+             fanss:'',
+
+           }
         ]
         
       }
     },
     methods:{
-     
+     getshop(){
+       axios
+       .get("/shop/getShop").then(res=>{
+         this.shopList=res.data.result.list
+         this.shopList.map(item=>{
+           item.fanss=item.fans.length
+         })
+       
+       });
+     }
     },
     computed:{
       searchData(){
             if(this.input3){
                 return this.shopList.filter((value)=>{  //过滤数组元素
-                    return value.shopname.includes(this.input3)||value.ordername.includes(this.input3)||value.kind.includes(this.input3)||value.level.includes(this.input3)
-                    ||value.credit.includes(this.input3)||value.fans.includes(this.input3); //如果包含字符返回true
+                    return value.shopname.includes(this.input3)||value.order.includes(this.input3)||value.kind.includes(this.input3); //如果包含字符返回true
                 });
             }
             else{
                 return this.shopList;
             }
         }
+    },
+     created() {
+        this.getshop();
     }
-    // axios.get
-  }
+  };
 </script>
 
 <style scoped>
