@@ -11,7 +11,7 @@ import MyShop from '@/views/MyShop'
 import ShopManage from '@/views/ShopManage'
 import Access from '@/views/Access'
 import Audit from '@/views/Audit'
-
+import GoodForm from '@/views/goodForm'
 
 Vue.use(Router)
 
@@ -51,6 +51,11 @@ export default new Router({
       path: '/shopManage',
       name: 'ShopManage',
       component: ShopManage,
+    },
+    {
+      path: '/goodform',
+      name: 'GoodForm',
+      component: GoodForm,
     },
     {
       path: '/Audit',
