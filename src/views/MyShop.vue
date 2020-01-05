@@ -8,11 +8,11 @@
                 <el-button round @click="fans(item.id)">粉丝管理</el-button>
             </div>
             <div class="shop-edit">
-                <el-button type="success" icon="el-icon-edit" circle></el-button>
+                <el-button type="success" icon="el-icon-edit" circle @click="addShop"></el-button>
             </div>
         </div>
         <!-- <div> -->
-            <el-button type="danger" plain class="add-shop">申请店铺</el-button>
+            <el-button type="danger" plain class="add-shop" @click="addShop">申请店铺</el-button>
         <!-- </div> -->
     </div>
 </template>
@@ -50,6 +50,12 @@ export default {
     methods: {
         goods(shopId){
             this.$router.push({path:'/'})
+        },
+        fans(id){
+            this.$router.push({path:'/fans'})
+        },
+        addShop(){
+            this.$router.push({path:'/addshop'})
         }
     },
     created() {
