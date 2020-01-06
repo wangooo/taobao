@@ -23,7 +23,7 @@
                     </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary">立即创建</el-button>
+                <el-button type="primary" @click="add">立即创建</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -39,7 +39,6 @@ export default {
         return {
             form: {
                 name: "",
-                desc: "",
                 desc: "",
                 order:""
             },
@@ -61,6 +60,18 @@ export default {
                 this.$message.error("上传头像图片大小不能超过 2MB!");
             }
             return isJPG && isLt2M;
+        },
+        add(){
+            axios
+                .get("/shop/addShop", {
+                    params: {
+                        form
+                    }
+                })
+                .then(res => {
+                    // this.shopLists = res.data.result.list;
+                    console.log(res);
+                });
         }
     }
 };

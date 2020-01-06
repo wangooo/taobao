@@ -4,6 +4,12 @@
             <el-form-item label="商品名称">
                 <el-input v-model="form.name"></el-input>
             </el-form-item>
+            <el-form-item label="上架状态">
+                <el-select v-model="form.state" placeholder="请选择商品上架状态">
+                    <el-option label="上架" value="1"></el-option>
+                    <el-option label="待上架" value="0"></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="商品描述">
                 <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>
@@ -12,18 +18,18 @@
             </el-form-item>
             <el-form-item label="图片">
                 <el-upload
-                        class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload"
-                    >
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload"
+                >
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary">立即创建</el-button>
+                <el-button type="primary" @click="addGood">立即创建</el-button>
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
@@ -40,14 +46,8 @@ export default {
             form: {
                 name: "",
                 desc: "",
-                region: "",
-                date1: "",
-                date2: "",
-                delivery: false,
-                type: [],
-                resource: "",
-                desc: "",
-                price:21
+                price: 1,
+                state: "1"
             },
             imageUrl: ""
         };
@@ -67,6 +67,23 @@ export default {
                 this.$message.error("上传头像图片大小不能超过 2MB!");
             }
             return isJPG && isLt2M;
+        },
+        addGood() {
+            let oo = Object.assign(this.form,{});
+            console.log(oo)
+
+            oo.state = this.form.state == "1"? true:false
+            axios
+                .get("/shop/addGood", {
+                    params: {
+                        id:this.$route.query.id,
+                        form:oo
+                    }
+                })
+                .then(res => {
+                    // this.shopLists = res.data.result.list;
+                    console.log(res);
+                });
         }
     }
 };
