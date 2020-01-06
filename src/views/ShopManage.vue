@@ -84,7 +84,21 @@
        });
      },
      clearshop(){
-        alert("确定要关闭吗？")
+       var con;
+        con=confirm("确定要关闭吗？");
+        if(con==true)
+        {
+          // let shopname = '小王的商店';
+          // axios
+          // .get("/shop/clearShop",{params:{
+            
+          // shopname:'小王的商店'
+          // }}).then(res => {
+          //           this.shopList = res.data.result.list
+          //           console.log(res);
+          //       });
+        }
+        
      }
     },
     computed:{

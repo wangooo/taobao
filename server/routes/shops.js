@@ -34,20 +34,51 @@ router.get("/getMyShop", function (req, res, next) {
         })
     })
 });
+    router.get("/getGoods", function (req, res, next) {
+       // console.log('1111')
+    let param = {
+        id: req.query.id
+    };
+    Ashop.findOne({
+        id: req.query.id
+    }).then(ress => {
+        res.json({
+        status: '0',
+        msg: '',
+        result: {
+            list: ress
+        }
+        })
+    })
+    });
 
 
 router.get("/getShop", function (req, res, next) {
-    console.log('1111');
+    //console.log('1111');
     Ashop.find({}).then(ress => {
         res.json({
-            status: '0',
-            msg: '',
+              shopname: '',
+              order: '',
+              kind: '',
+              score: '',
             result: {
                 list: ress
             }
         })
     })
 });
+router.get("/clearShop",function(req,res,next){
+    // let shopname ="小王的商店";
+    // console(shopname);
+    // Ashop.remove(shopname,function(err,res){
+    //     if(err){
+    //         console.log(err);
+            
+    //     }else{
+    //         console.log(res);
+    //     }
+    // })
+})
 
 router.get("/addShop", function (req, res, next) {
     let id = req.query.id;
