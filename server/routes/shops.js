@@ -57,27 +57,54 @@ router.get("/getShop", function (req, res, next) {
     //console.log('1111');
     Ashop.find({}).then(ress => {
         res.json({
-              shopname: '',
-              order: '',
-              kind: '',
-              score: '',
-            result: {
+            //   shopname: '',
+            //   order: '',
+            //   kind: '',
+            //   score: '',
+              result: {
                 list: ress
             }
         })
     })
 });
 router.get("/clearShop",function(req,res,next){
-    // let shopname ="小王的商店";
-    // console(shopname);
-    // Ashop.remove(shopname,function(err,res){
-    //     if(err){
-    //         console.log(err);
-            
-    //     }else{
-    //         console.log(res);
+    
+   // console(req.query.shopname);
+   let str={'shopname':req.query.shopname};
+   Ashop.remove(str, function (err, res) {
+     if (err) {
+       console.log("Error:" + err);
+     } else {
+       console.log("Res:" + res);
+     }
+   })
+   
+});
+router.get("/AddShop", function (req, res, next) {
+
+    // console(req.query.shopname);
+    // let str = { 'shopname': req.query.shopname };
+    // Ashop.remove(str, function (err, res) {
+    //     if (err) {
+    //         console.log("Error:" + err);
+    //     } else {
+    //         console.log("Res:" + res);
     //     }
     // })
+    var shop = new Ashop({
+        'shopname':req.query.shopname,
+        'order':req.query.order,
+        'desc':req.query.desc
+    });
+    shop.save(function(err,res){
+         if (err) {
+           console.log("Error:" + err);
+         } else {
+           console.log("Res:" + res);
+         }
+    });
+
+
 })
 
 router.get("/addShop", function (req, res, next) {

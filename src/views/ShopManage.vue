@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container" >
    <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
 
   </el-input>
-      <el-table
+       <el-table
     :data="searchData"
     style="width: 100%"
     max-height="250" class="ttt">
@@ -40,13 +40,12 @@
       <template slot-scope="scope">
         <el-button
           type="text"
-          size="small" @click="clearshop">
+          size="small" @click="clearshop(scope.row.shopname,scope.$index,searchData)">
           关闭店铺
         </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  </el-table>
+       </template>
+      </el-table-column>
+      </el-table>
       
   </div>
 </template>
@@ -68,8 +67,7 @@
              fanss:'',
 
            }
-        ]
-        
+        ],
       }
     },
     methods:{
@@ -83,20 +81,19 @@
        
        });
      },
-     clearshop(){
+     clearshop(shop,index,rows){
        var con;
         con=confirm("确定要关闭吗？");
         if(con==true)
         {
-          // let shopname = '小王的商店';
-          // axios
-          // .get("/shop/clearShop",{params:{
-            
-          // shopname:'小王的商店'
-          // }}).then(res => {
-          //           this.shopList = res.data.result.list
-          //           console.log(res);
-          //       });
+          console.log(shop);
+          rows.splice(index,1)
+           axios
+           .get("/shop/clearShop",{params:{shopname:shop}}).then(res => {
+                    this.shopList = res.data.result.list
+                    console.log(res);
+                });
+
         }
         
      }

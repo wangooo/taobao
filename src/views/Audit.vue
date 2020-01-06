@@ -11,7 +11,7 @@
       width="150">
     </el-table-column>
     <el-table-column
-      prop="newShop"
+      prop="shopname"
       label="新店名称"
       width="120">
     </el-table-column>
@@ -36,8 +36,8 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">通过</el-button>
-        <el-button type="text" size="small">拒绝</el-button>
+        <el-button @click="Addshop(scope.row.order,scope.row,scope.$index,newshoplist)" type="text" size="small">通过</el-button>
+        <el-button type="text" size="small" @click="refuse(scope.row.order,scope.$index,newshoplist)">拒绝</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -58,7 +58,7 @@
                   desc: '',
                   credit: '',
                   applytime: '',
-                  newShop: '',
+                  shopname: '',
               }
           ]
       }
@@ -70,6 +70,37 @@
           .get("/check/getNewShop").then(res=>{
               this.newshoplist=res.data.result.list
           })
+      },
+      refuse(order1,index,rows){
+        rows.splice(index,1);
+        axios
+        .get("/check/clearCheck",{params:{order:order1}}).then(res => {
+                    this.newshoplist = res.data.result.list
+                    console.log(res);
+                });
+
+      },
+      Addshop(arr,index,rows){
+        var con;
+        con=confirm("确定要通过？");
+        if(con==true)
+        {
+        
+         axios
+         .get("/shop/AddShop",{params:{
+           shopname:arr.shopname,
+           desc:arr.desc,
+           order:arr.order
+           }}).then(res=>{
+              this.shopList=res.data.result.list
+           })
+           rows.splice(index,1)
+            axios
+         .get("/check/clearCheck",{params:{order:order1}}).then(res => {
+                    this.newshoplist = res.data.result.list
+                    console.log(res);
+                });
+        }
       }
   },
   created(){
