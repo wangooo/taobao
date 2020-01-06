@@ -6,12 +6,12 @@
     style="width: 100%" class="apply">
     <el-table-column
       fixed
-      prop="ordername"
+      prop="order"
       label="店主名称"
       width="150">
     </el-table-column>
     <el-table-column
-      prop="shopname"
+      prop="newShop"
       label="新店名称"
       width="120">
     </el-table-column>
@@ -54,18 +54,26 @@
       return{
           newshoplist:[
               {
-                  ordername:'1',
-                  shopname:'2',
-                  desc:'3',
-                  credit:'4',
-                  applytime:'5'
+                  order: '',
+                  desc: '',
+                  credit: '',
+                  applytime: '',
+                  newShop: '',
               }
           ]
       }
     },
   //  components:{FFF},
     methods:{
-      
+      getnewshop(){
+          axios
+          .get("/check/getNewShop").then(res=>{
+              this.newshoplist=res.data.result.list
+          })
+      }
+  },
+  created(){
+      this.getnewshop();
   }
   }
 </script>

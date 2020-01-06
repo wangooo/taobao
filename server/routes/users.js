@@ -82,5 +82,19 @@ router.get("/checkLogin", function (req, res, next) {
     }
   })
 });
+router.get("/getMyuser", function (req, res, next) {
+  let param = {
+    order: req.query.order
+  };
+  Ashop.find({order:"张三"}).then(ress=>{
+    res.json({
+      status: '0',
+      msg: '',
+      result: {
+        list: ress
+      }
+    })
+  })
+});
 
 module.exports = router;
