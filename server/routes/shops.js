@@ -35,11 +35,10 @@ router.get("/getMyShop", function (req, res, next) {
     })
 });
 
-router.get("/getGoods", function (req, res, next) {
-    let param = {
-        id: req.query.id
-    };
-    Ashop.findOne({ id: req.query.id }).then(ress => {
+
+router.get("/getShop", function (req, res, next) {
+    console.log('1111');
+    Ashop.find({}).then(ress => {
         res.json({
             status: '0',
             msg: '',
