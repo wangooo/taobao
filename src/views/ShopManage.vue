@@ -40,7 +40,7 @@
       <template slot-scope="scope">
         <el-button
           type="text"
-          size="small">
+          size="small" @click="clearshop">
           关闭店铺
         </el-button>
       </template>
@@ -82,6 +82,9 @@
          })
        
        });
+     },
+     clearshop(){
+        alert("确定要关闭吗？")
      }
     },
     computed:{
