@@ -86,20 +86,9 @@ export default new Router({
       component: Fans,
     },
     {
-      path:'/try',
+      path:'/',
       name:'Try',
-      component:Try,
-      children:[
-        {
-          path:'oo',
-          name:'oo',
-          component:Oo
-        },{
-          path:'gg',
-          name:'gg',
-          component:Gg
-        }
-      ]
+      component:Gg
     }
     // {
     //   path:'/oo',

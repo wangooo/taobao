@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         goods(shopId) {
-            this.$router.push({ path: "/?id="+shopId});
+            this.$router.push({ path: "/?id=" + shopId });
         },
         fans(id) {
             this.$router.push({ path: "/fans" });
@@ -58,18 +58,41 @@ export default {
             this.$router.push({ path: "/addshop" });
         },
         getShops() {
-            let order = "wsy";
+            let order = window.localStorage.name;
             axios
-                .get("/shop/getMyShop", {params:{
-                    order:'wsy'
-                }})
-                .then(res => {
-                    this.shopLists = res.data.result.list
-                    console.log(res);
+                .get("/user/myShopAudit", {
+                    params: {
+                        order: order
+                    }
+                })
+                .then((res, err) => {
+                    if (res) {
+                        if (res.data.result.audit === "super") {
+                            console.log("super");
+                            axios
+                                .get("/shop/getAllShop")
+                                .then(res => {
+                                    this.shopLists = res.data.result.list;
+                                });
+                        } else {
+                            console.log('hh')
+                            axios
+                                .get("/shop/getMyShop", {
+                                    params: {
+                                        order: window.localStorage.name
+                                    }
+                                })
+                                .then(res => {
+                                    this.shopLists = res.data.result.list;
+                                    console.log(res);
+                                });
+                        }
+                    }
                 });
         }
     },
     created() {
+        // this.getAudit();
         this.getShops();
     }
 };
