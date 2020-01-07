@@ -35,14 +35,13 @@
       <template slot-scope="scope">
         <el-button
           type="text"
-          size="small" @click="clearshopkeeper">
+          size="small" @click="clearshopkeeper(scope.row.name,scope.$index,searchData)">
           删除店主
         </el-button>
       </template>
     </el-table-column>
   </el-table>
-  </el-table>
-      
+  </el-table>   
   </div>
 </template>
 

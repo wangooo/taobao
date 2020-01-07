@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-   <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+   <el-input placeholder="请输入内容" v-model="input1" class="input-with-select">
 
   </el-input>
       <el-table
@@ -40,7 +40,7 @@
       <template slot-scope="scope">
         <el-button
           type="text"
-          size="small" @click="clearuser">
+          size="small" @click="clearuser(scope.row.name,scope.$index,searchData)">
           删除管理员
         </el-button>
       </template>
@@ -103,9 +103,9 @@
     },
     computed:{
       searchData(){
-            if(this.input3){
+            if(this.input1){
                 return this.userList.filter((value)=>{  //过滤数组元素
-                    return value.name.includes(this.input3)||value.province.includes(this.input3)||value.city.includes(this.input3)||value.adress.includes(this.input3); //如果包含字符返回true
+                    return value.name.includes(this.input1)||value.province.includes(this.input1)||value.city.includes(this.input1)||value.adress.includes(this.input1); //如果包含字符返回true
                 });
             }
             else{
