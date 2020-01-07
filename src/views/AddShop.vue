@@ -2,7 +2,7 @@
     <div class="form-box">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="商铺名称">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.shopname"></el-input>
             </el-form-item>
             <el-form-item label="描述">
                 <el-input type="textarea" v-model="form.desc"></el-input>
@@ -38,7 +38,7 @@ export default {
     data() {
         return {
             form: {
-                name: "",
+                shopname: "",
                 desc: "",
                 order:""
             },
@@ -63,10 +63,13 @@ export default {
         },
         add(){
             axios
-                .get("/shop/addShop", {
-                    params: {
-                        form
-                    }
+                .get("/shop/addShop",{
+                    params:
+                        {
+                            shopname:this.form.shopname,
+                            desc:this.form.desc,
+                            order:this.form.order
+                        }
                 })
                 .then(res => {
                     // this.shopLists = res.data.result.list;
