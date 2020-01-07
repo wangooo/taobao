@@ -4,11 +4,11 @@
             <img class="shop-img" :src="'../../static/'+item.pic" />
             <div class="shop-name">{{item.shopname}}</div>
             <div>
-                <el-button type="primary" round @click="goods(item.id)">商品管理</el-button>
+                <el-button type="primary" round @click="goods(item.id,item.shopname)">商品管理</el-button>
                 <el-button round @click="fans(item.id)">粉丝管理</el-button>
             </div>
             <div class="shop-edit">
-                <el-button type="success" icon="el-icon-edit" circle @click="addShop"></el-button>
+                <el-button type="success" icon="el-icon-edit" circle @click="addShop(item.shopname)"></el-button>
             </div>
         </div>
         <!-- <div> -->
@@ -48,14 +48,14 @@ export default {
         };
     },
     methods: {
-        goods(shopId) {
-            this.$router.push({ path: "/?id="+shopId});
+        goods(shopId,shopname) {
+            this.$router.push({ path: "/?id="+shopId,query:{shopname,shopname}});
         },
         fans(id) {
             this.$router.push({ path: "/fans" });
         },
-        addShop() {
-            this.$router.push({ path: "/addshop" });
+        addShop(shopname) {
+            this.$router.push({ path: "/addshop",query:{shopname} });
         },
         getShops() {
             let order = "wsy";

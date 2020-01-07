@@ -3,6 +3,7 @@
    <el-input placeholder="请输入内容" v-model="input1" class="input-with-select">
 
   </el-input>
+   <el-button type="danger" plain class="add-shop" @click="addmanager">添加管理员</el-button>
       <el-table
     :data="searchData"
     style="width: 100%"
@@ -38,11 +39,7 @@
       label="操作"
       width="120">
       <template slot-scope="scope">
-        <el-button
-          type="text"
-          size="small" @click="clearuser(scope.row.name,scope.$index,searchData)">
-          删除管理员
-        </el-button>
+        <el-button type="text" size="small" @click="clearuser(scope.row.name,scope.$index,searchData)">删除管理员</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -99,6 +96,13 @@
 
         }
         
+     },
+    //  adduser(user1,arr,index,rows){
+
+
+    //  }
+    addmanager(){
+       this.$router.push({ path: "/addmanager" });
      }
     },
     computed:{

@@ -10,6 +10,9 @@
             <el-form-item label="店主名">
                 <el-input type="input" v-model="form.order"></el-input>
             </el-form-item>
+            <el-form-item label="申请时间">
+                <el-input type="input" v-model="form.applytime"></el-input>
+            </el-form-item>
             <el-form-item label="图片">
                 <el-upload
                         class="avatar-uploader"
@@ -40,7 +43,8 @@ export default {
             form: {
                 shopname: "",
                 desc: "",
-                order:""
+                order:"",
+                applytime:''
             },
             imageUrl: ""
         };
@@ -63,18 +67,20 @@ export default {
         },
         add(){
             axios
-                .get("/shop/addShop",{
+                .get("/check/addCheck",{
                     params:
                         {
                             shopname:this.form.shopname,
                             desc:this.form.desc,
-                            order:this.form.order
+                            order:this.form.order,
+                            applytime:this.form.applytime
                         }
                 })
                 .then(res => {
                     // this.shopLists = res.data.result.list;
                     console.log(res);
                 });
+              //  this.form={brand_right:0}
         }
     }
 };

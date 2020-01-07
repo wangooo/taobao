@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Ashop = require('../models/shops');
+//var Agood=require('../models/goods')
 
 //连接MongoDB数据库
 mongoose.connect('mongodb://127.0.0.1:27017/taobao', {
@@ -107,37 +108,87 @@ router.get("/AddShop", function (req, res, next) {
 
 })
 
-router.get("/addShop", function (req, res, next) {
-    // let id = req.query.id;
-    let params = req.query;
+// router.get("/addShop", function (req, res, next) {
+//     // let id = req.query.id;
+//     let params = req.query;
 
-    console.log(params.shopname);
-    let newShop = new Ashop({
-        "id":"4",
-        "shopname": params.shopname,
-        "order": params.order,
-        "desc": params.desc,
-        "createTime": "20201020",
-        "kind": "life",
-        "score": "80",
-        "pic": "1.jpg",
-        "shopImg": "/static/4.jpg",
-        "fans":[],
-        "goods":[]
+//     console.log(params.shopname);
+//     let newShop = new Ashop({
+//         "id":"4",
+//         "shopname": params.shopname,
+//         "order": params.order,
+//         "desc": params.desc,
+//         "createTime": "20201020",
+//         "kind": "life",
+//         "score": "80",
+//         "pic": "1.jpg",
+//         "shopImg": "/static/4.jpg",
+//         "fans":[],
+//         "goods":[]
+//     })
+//     newShop.save().then((ress,req)=>{
+//         if(res){
+//             console.log('sss'+ress);
+//             res.json({
+//                 status: '0',
+//                 msg: '',
+//                 result: {
+//                     list: ress
+//                 }
+//             })
+//         }
+//     })
+// // })
+// });
+router.get("/addGood", function (req, res, next) {
+
+           let params={
+        // 'productId':req.query.id,
+         'productName':req.query.name,
+         'salePrice': req.query.price,
+        // 'productImage':req.productImage
+      }
+      console.log(req.query.shopname)
+           Ashop.findOne({"shopname":req.query.shopname}).then((reso,err)=>{
+          if(reso){
+              console.log(req.query.name)
+              reso.goods.push({
+                  "productId": req.query.name,
+                  "salePrice": req.query.price,
+                  "state":false
+              });
+            //   goods.push(params)
+             reso.save(function (err, ress) {
+               if (err) {
+                   res.json({
+                     //   shopname: '',
+                     //   order: '',
+                     //   kind: '',
+                     //   score: '',
+                     result: {
+                       state: 'notok'
+                     }
+                   })
+                 console.log("Error:" + err);
+               } else {
+                   res.json({
+                     //   shopname: '',
+                     //   order: '',
+                     //   kind: '',
+                     //   score: '',
+                     result: {
+                       state:'ok'
+                     }
+                   })
+                 console.log("Res:" + res);
+               }
+
+             });
+          }
+       
+      })
+     // console(1111111)
     })
-    newShop.save().then((ress,req)=>{
-        if(res){
-            console.log('sss'+ress);
-            res.json({
-                status: '0',
-                msg: '',
-                result: {
-                    list: ress
-                }
-            })
-        }
-    })
-// })
-});
+
 
 module.exports = router;

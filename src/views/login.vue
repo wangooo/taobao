@@ -15,31 +15,39 @@ import axios from "axios";
 import FFF from "@/components/Footer.vue";
 
 export default {
-    name: "gg",
+    
     data() {
         return {
-            name: "",
-            pwd: ""
+           name:"",
+           pwd:""
         };
     },
     components: { FFF },
     methods: {
         saveUser() {
-            let storage = window.localStorage;
-            storage.setItem("userName", this.name);
-            storage.setItem("pwd", this.pwd);
+            // let storage = window.localStorage;
+            // storage.setItem("userName", this.name);
+            // storage.setItem("pwd", this.pwd);
             let params = {
                 name: this.name,
                 pwd: this.pwd
-            };
-            axios.get("/user/checkLogin", params).then(res => {
-                console.log(res);
-                if (res.data.result.state == "ok") {
-                    this.$router.push({ name: "Home" });
-                } else {
-                    alert("用户名或密码错误");
-                }
-            });
+            }
+            axios
+            .get("/check/getAccess",params).then(res=>{
+                // let b=res.data.result;
+                // if(b==true)
+                // {
+                //     let r=res.data.result.list.limit
+                // }else{
+                //     alert("用户名或密码错误")
+                // }
+              if(res.data.success==true){
+
+              }else{
+                  alert("用户名或密码错误")
+              }
+            })
+           
         }
     }
 };

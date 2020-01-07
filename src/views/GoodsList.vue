@@ -32,7 +32,7 @@
                         <el-button
                             type="warning"
                             style="margin:20px 0;width:200px"
-                            @click="addGood($route.query.id)"
+                            @click="addGood($route.query.id,$route.query.shopname)"
                         >添加商品</el-button>
                         <dl class="filter-price">
                             <dt>Price:</dt>
@@ -163,9 +163,9 @@ export default {
         this.getGoodsList();
     },
     methods: {
-        addGood(id) {
+        addGood(id,name) {
             console.log(id);
-            this.$router.push({ path: "/goodForm",query:{id:id}});
+            this.$router.push({ path: "/goodForm",query:{id:id,shopname:name}});
         },
         editGood() {
             this.$router.push({ path: "/goodForm" });

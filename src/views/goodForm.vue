@@ -77,10 +77,14 @@ export default {
                 .get("/shop/addGood", {
                     params: {
                         id:this.$route.query.id,
-                        form:oo
+                        shopname:this.$route.query.shopname,
+                        name:this.form.name,
+                        price:this.form.price,
+                        desc:this.form.desc
                     }
                 })
                 .then(res => {
+                    console.log(oo)
                     // this.shopLists = res.data.result.list;
                     console.log(res);
                 });

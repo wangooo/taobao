@@ -15,6 +15,7 @@ import Shopkeeper from '@/views/Shopkeeper'
 import GoodForm from '@/views/goodForm'
 import Fans from '@/views/fans'
 import AddShop from '@/views/AddShop'
+import addManager from '@/views/addManager'
 
 Vue.use(Router)
 
@@ -79,6 +80,11 @@ export default new Router({
       path: '/shopkeeper',
       name: 'Shopkeeper',
       component: Shopkeeper,
+    },
+    {
+      path: '/addmanager',
+      name: 'addManager',
+      component: addManager,
     },
     {
       path: '/fans',

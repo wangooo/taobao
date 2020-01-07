@@ -3,6 +3,7 @@
    <el-input placeholder="请输入内容" v-model="input2" class="input-with-select">
 
   </el-input>
+  
       <el-table
     :data="searchData"
     style="width: 100%"

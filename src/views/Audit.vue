@@ -80,7 +80,7 @@
                 });
 
       },
-      Addshop(arr,index,rows){
+      Addshop(order1,arr,index,rows){
         var con;
         con=confirm("确定要通过？");
         if(con==true)
