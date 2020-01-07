@@ -108,51 +108,33 @@ router.get("/AddShop", function (req, res, next) {
 })
 
 router.get("/addShop", function (req, res, next) {
-    let id = req.query.id;
-    let form = req.query.form;
-    Ashop.findOne({ id }, function (err1, theShop) {
-        if (err1) {
+    // let id = req.query.id;
+    let params = req.query;
+
+    console.log(params.shopname);
+    let newShop = new Ashop({
+        "id":"4",
+        "shopname": params.shopname,
+        "order": params.order,
+        "desc": params.desc,
+        "createTime": "20201020",
+        "kind": "life",
+        "score": "80",
+        "pic": "1.jpg",
+        "shopImg": "/static/4.jpg",
+        "fans":[],
+        "goods":[]
+    })
+    newShop.save().then((ress,req)=>{
+        if(res){
+            console.log('sss'+ress);
             res.json({
-                status: '1',
-                msg: err1.message,
-                result: ''
+                status: '0',
+                msg: '',
+                result: {
+                    list: ress
+                }
             })
-        }
-        else {
-            if (theShop) {
-                theShop.goods.push(form);
-                theShop.update((err,doc)=>{
-                    if(err){
-                        res.json({
-                            status: '0',
-                            msg: '',
-                            result: 'no'
-                          })
-                    }
-                    else{
-                        console.log(doc)
-                        res.json({
-                            status: '0',
-                            msg: '',
-                            result: 'suc'
-                          })
-                    }
-                })
-                // userDoc.save(function (err2, doc2) {
-                //     if (err2) {
-                //         res.json({
-                //             status: '1',
-                //             msg: err2.message
-                //         })
-                //     } else {
-                //         res.json({
-                //             status: '0',
-                //             msg: '',
-                //             result: 'suc'
-                //         })
-                //     }
-                // })
-            }
         }
     })
 // })
