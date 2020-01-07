@@ -34,6 +34,21 @@ router.get("/getNewShop",function(req,res,next){
         })
     })
 });
+router.get("/clearCheck", function (req, res, next) {
+
+  // console(req.query.shopname);
+  let str = {
+    'order': req.query.order
+  };
+  Bshop.remove(str, function (err, res) {
+    if (err) {
+      console.log("Error:" + err);
+    } else {
+      console.log("Res:" + res);
+    }
+  })
+
+});
 router.get("/test", function (req, res, next) {
   res.json({
     status: '0',
