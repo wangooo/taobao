@@ -8,8 +8,11 @@ var ejs = require('ejs');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var showGoods = require('./routes/goods');
-var shopRouter = require('./routes/shops')
-var checkRouter = require('./routes/checks')
+var shopRouter = require('./routes/shops');
+var checkRouter = require('./routes/checks');
+var shopkeeperRouter = require('./routes/shopkeepers');
+//var userRouter = require('./routes/checks')
+
 // var login = require('./routes/login');
 
 var app = express();
@@ -58,6 +61,8 @@ app.use('/user', usersRouter);
 app.use('/goods', showGoods);
 app.use('/shop', shopRouter);
 app.use('/check', checkRouter);
+app.use('/shopkeeper', shopkeeperRouter);
+//app.use('/user', userRouter);
 
 // app.use('/login', login);
 

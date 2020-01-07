@@ -29,6 +29,12 @@ module.exports = {
       '/shop/*':{
         target:'http://localhost:3000'
       },
+      '/shopkeeper':{
+        target:'http://localhost:3000'
+      },
+      '/shopkeeper/*':{
+        target:'http://localhost:3000'
+      },
       '/check': {
         target: 'http://localhost:3000'
       },

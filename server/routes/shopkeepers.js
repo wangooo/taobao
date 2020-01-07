@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Goods = require('../models/goods');
-var Auser = require('../models/users');
+var Ashopkeeper = require('../models/shopkeepers');
 
 //连接MongoDB数据库
 mongoose.connect('mongodb://127.0.0.1:27017/taobao', { useNewUrlParser: true });
@@ -27,7 +27,7 @@ router.post("/login", function (req, res, next) {
     userName: req.body.tuserName,
     userPwd: req.body.tuserPwd
   };
-  Auser.findOne(param, function (err, doc) {
+  Ashopkeeper.findOne(param, function (err, doc) {
     console.log("111");
     if (err) {
       res.json({
@@ -82,15 +82,10 @@ router.get("/checkLogin", function (req, res, next) {
     }
   })
 });
-router.get("/getUser", function (req, res, next) {
-  //console.log('1111');
-  Auser.find({}).then(ress => {
+router.get("/getshopkeeper", function (req, res, next) {
+  console.log('1111');
+  Ashopkeeper.find({}).then(ress => {
       res.json({
-                name:'',
-                age:'',
-                province:'',
-                city:'',
-                adress:'',
           result: {
               list: ress
           }
@@ -98,11 +93,11 @@ router.get("/getUser", function (req, res, next) {
   })
 });
 
-router.get("/clearuser",function(req,res,next){
+router.get("/clearshopkeeper",function(req,res,next){
     
   // console(req.query.shopname);
   let str={'name':req.query.name};
-  Auser.remove(str, function (err, res) {
+  Ashopkeeper.remove(str, function (err, res) {
     if (err) {
       console.log("Error:" + err);
     } else {

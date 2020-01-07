@@ -1,157 +1,130 @@
 <template>
-    <div>
-      <template>
-       <!-- <el-input v-model="search"></el-input> -->
-       搜索：<el-input v-model="fans"></el-input>
-        <el-table
-    :data="tableData"
-    border
-    style="width: 100%">
+  <div class="container">
+   <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+
+  </el-input>
+      <el-table
+    :data="searchData"
+    style="width: 100%"
+    max-height="250" class="ttt">
     <el-table-column
       fixed
-      prop="date"
-      label="工作年限"
+      prop="name"
+      label="姓名"
       width="150">
     </el-table-column>
     <el-table-column
-      prop="name"
-      label="姓名"
+      prop="age"
+      label="工作年限"
       width="120">
     </el-table-column>
     <el-table-column
       prop="province"
-      label="工作地省份"
+      label="省区"
       width="120">
     </el-table-column>
     <el-table-column
       prop="city"
       label="市区"
-      width="120">
+      width="180">
     </el-table-column>
     <el-table-column
-      prop="address"
+      prop="adress"
       label="地址"
-      width="300">
+      width="180">
     </el-table-column>
     <el-table-column
       fixed="right"
       label="操作"
-      width="100">
+      width="120">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
-        <el-button type="text" size="small">添加</el-button>
+        <el-button
+          type="text"
+          size="small" @click="clearuser">
+          删除管理员
+        </el-button>
       </template>
     </el-table-column>
-  </el-table> 
-  </template>
-</div>
+  </el-table>
+  </el-table>
+      
+  </div>
 </template>
-   
-<style scoped>
-  .el-header {
-    background-color: #B3C0D1;
-    color: rgb(12, 10, 10);
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    color: #333;
-  }
 
-  .my-autocomplete {
-    line-height: normal;
-  padding:7px;
-  }
-
-
-    .name {
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-    .addr {
-      font-size: 12px;
-      color: #b4b4b4;
-    }
-
-    .highlighted .addr {
-      color: #ddd;
-    }
-
-
-</style>
-   
 <script>
-import axios from "axios";
+  import axios from 'axios'
 
-export default {
+  export default {
     name: "gg",
-    data() {
-      return {
-         tableData: [
-        //    age:'5',
-        //   name:'张三',
-         
-        //   address: '上海市普陀区金沙江路 1518 弄'
-        //  }, {
-          
-        //   name: '李四',
-          
-        //   address: '上海市普陀区金沙江路 1517 弄'
-        //  }, {
-        //    date: '2016-05-01',
-        //    name: '王小虎',
-        //    address: '上海市普陀区金沙江路 1519 弄'
-        //  }, {
-        //   date: '2016-05-03',
-        //   name: '王小虎',
-        // address: '上海市普陀区金沙江路 1516 弄'
-          ],
+    data(){
+      return{
+        input3:'',
+        userList:[
+           {
+             name:'',
+             age:'',
+             province:'',
+             city:'',
+             adress:'',
+
+           }
+        ]
         
-      search:""
       }
     },
-     methods:{
-        handleClick(){
-            alert('确定删除吗？')
-        }
+    methods:{
+     getuser(){
+       axios
+       .get("/user/getUser").then(res=>{
+         this.userList=res.data.result.list
+        //  this.shopList.map(item=>{
+        //    item.fanss=item.fans.length
+        //  })
+       
+       });
+     
      },
-      getShops() {
-            let order = "张三";
-            axios
-                .get("/user/getMyuser", {params:{
-                    order:'张三'
-                }})
-                .then(res => {
-                    this.shopLists = res.data.result.list
+    clearuser(user,index,rows){
+       var con;
+        con=confirm("确定要删除吗？");
+        if(con==true)
+        {
+          console.log(user);
+          rows.splice(index,1)
+           axios
+           .get("/user/clearuser",{params:{name:user}}).then(res => {
+                    this.userList = res.data.result.list
                     console.log(res);
                 });
-        },
-    created() {
-        this.getShops();
+
+        }
+        
+     }
     },
     computed:{
-        searchData(){
-            if(this.users){
-                return this.tableData.filter((value)=>{  //过滤数组元素
-                    return value.name.includes(this.users); //如果包含字符返回true
+      searchData(){
+            if(this.input3){
+                return this.userList.filter((value)=>{  //过滤数组元素
+                    return value.name.includes(this.input3)||value.province.includes(this.input3)||value.city.includes(this.input3)||value.adress.includes(this.input3); //如果包含字符返回true
                 });
             }
             else{
-                return this.tableData;
+                return this.userList;
             }
         }
+    },
+     created() {
+        this.getuser();
     }
-};
-//     methods: {
-//     },
-//     created(){
-//      axios.get('/user/getUsers').then((response)=>{
-//                let res=response.data;
-//               if(res.status=='0'){
-//                 console.log("见成果了");
-//                  this.getCardList();
-//                }
-//             });
-//     }
-// };
+  };
 </script>
+
+<style scoped>
+.ttt{
+  margin: 60px 150px 20px 0px;
+  text-align: center;
+}
+.input-with-select{
+  margin: 40px 150px 20px 0px;
+}
+</style>

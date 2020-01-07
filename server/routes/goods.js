@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Goods = require('../models/goods');
-var Auser = require('../models/user');
+var Auser = require('../models/users');
 
 //连接MongoDB数据库
 mongoose.connect('mongodb://127.0.0.1:27017/shop',{useNewUrlParser:true});
