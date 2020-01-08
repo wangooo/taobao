@@ -5,7 +5,7 @@
             <div class="shop-name">{{item.shopname}}</div>
             <div>
                 <el-button type="primary" round @click="goods(item.id,item.shopname)">商品管理</el-button>
-                <el-button round @click="fans(item.id)">粉丝管理</el-button>
+                <el-button round @click="fans(item.id,item.shopname)">粉丝管理</el-button>
             </div>
             <div class="shop-edit">
                 <el-button type="success" icon="el-icon-edit" circle @click="addShop(item.shopname)"></el-button>
@@ -51,8 +51,8 @@ export default {
         goods(shopId,shopname) {
             this.$router.push({ path: "/?id="+shopId,query:{shopname,shopname}});
         },
-        fans(id) {
-            this.$router.push({ path: "/fans" });
+        fans(id,shopname) {
+            this.$router.push({ path: "/fans",query:{shopname} });
         },
         addShop(shopname) {
             this.$router.push({ path: "/addshop",query:{shopname} });
