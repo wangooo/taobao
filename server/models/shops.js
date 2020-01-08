@@ -9,6 +9,7 @@ var productSchema = new Schema({
     "createTime": String,
     "kind":String,
     "score":String,
+    "pic":String,
     "fans":[
         {
             "id": String,
@@ -24,7 +25,8 @@ var productSchema = new Schema({
             "productId": String,
             "productName": String,
             "salePrice": Number,
-            "productImage": String
+            "productImage": String,
+            "state": Boolean
         }]
 });
 

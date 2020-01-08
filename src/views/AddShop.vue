@@ -10,17 +10,20 @@
             <el-form-item label="店主名">
                 <el-input type="input" v-model="form.order"></el-input>
             </el-form-item>
+            <el-form-item label="申请时间">
+                <el-input type="input" v-model="form.createTime"></el-input>
+            </el-form-item>
             <el-form-item label="图片">
                 <el-upload
-                        class="avatar-uploader"
-                        action="https://jsonplaceholder.typicode.com/posts/"
-                        :show-file-list="false"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload"
-                    >
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                    class="avatar-uploader"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload"
+                >
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="add">立即创建</el-button>
@@ -40,10 +43,19 @@ export default {
             form: {
                 shopname: "",
                 desc: "",
-                order:""
+                order: "",
+                createTime: ""
             },
-            imageUrl: ""
+            imageUrl: "",
+            flag: "add",
+            id:""
         };
+    },
+    created() {
+        if (this.$route.query.shopname) {
+            this.getEditItem();
+            this.flag = "edit";
+        }
     },
     methods: {
         handleAvatarSuccess(res, file) {
@@ -61,17 +73,50 @@ export default {
             }
             return isJPG && isLt2M;
         },
-        add(){
-            axios
-                .get("/shop/addShop",{
-                    params:
-                        {
-                            shopname:this.form.shopname,
-                            desc:this.form.desc,
-                            order:this.form.order
+        add() {
+            if (this.flag === "edit") {
+                axios
+                    .get("/shop/editShop", {
+                        params: {
+                            id: this.id,
+                            shopname: this.form.shopname,
+                            desc: this.form.desc,
+                            order: this.form.order,
+                            applytime: this.form.createTime
                         }
+                    })
+                    .then(res => {
+                        if(res.data.state=='ok'){
+                            this.$router.push({path:'/myShop'})
+                        }
+                    });
+            } else {
+                axios
+                    .get("/check/addCheck", {
+                        params: {
+                            shopname: this.form.shopname,
+                            desc: this.form.desc,
+                            order: this.form.order,
+                            applytime: this.form.createTime
+                        }
+                    })
+                    .then(res => {
+                        // this.shopLists = res.data.result.list;
+                        console.log(res);
+                    });
+            }
+            //  this.form={brand_right:0}
+        },
+        getEditItem() {
+            axios
+                .get("/shop/getEditShop", {
+                    params: {
+                        shopname: this.$route.query.shopname
+                    }
                 })
                 .then(res => {
+                    this.form = res.data.result.obj;
+                    this.id = res.data.result.obj.id;
                     // this.shopLists = res.data.result.list;
                     console.log(res);
                 });

@@ -17,7 +17,28 @@ export default {
         return {
             loginIf: true
         };
+    },
+    watch: {
+        $route:{
+            handler:function(to,from){
+                if(to=='login'){
+                    
+                }
+                else
+                this.checkLogin()
+            },
+            immediate:true
+        }
+    },
+    methods: {
+        checkLogin() {
+            if (!window.localStorage.getItem("name")) {
+                alert("请登录");
+                this.$router.push({ path: "/login" });
+            }
+        }
     }
+
     // watch
     // created(){
     //   if(this.$route.name === "Login"){
@@ -31,11 +52,11 @@ export default {
 .nav {
     /* float: left; */
     width: 180px;
-    position:fixed;
+    position: fixed;
     /* height:100%; */
     /* height: */
 }
 .right {
-    margin-left:180px;
+    margin-left: 180px;
 }
 </style>

@@ -2,7 +2,7 @@
     <div class="form-box">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="商品名称">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.productName"></el-input>
             </el-form-item>
             <el-form-item label="上架状态">
                 <el-select v-model="form.state" placeholder="请选择商品上架状态">
@@ -14,7 +14,7 @@
                 <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>
             <el-form-item label="商品价格">
-                <el-input v-model="form.price"></el-input>
+                <el-input v-model="form.salePrice"></el-input>
             </el-form-item>
             <el-form-item label="图片">
                 <el-upload
@@ -44,13 +44,20 @@ export default {
     data() {
         return {
             form: {
-                name: "",
+                productName: "",
                 desc: "",
-                price: 1,
+                salePrice: 1,
                 state: "1"
             },
-            imageUrl: ""
+            imageUrl: "",
+            flag: "add"
         };
+    },
+    mounted() {
+        if (this.$route.query.productId) {
+            this.flag = "edit";
+            this.getEditItem();
+        }
     },
     methods: {
         handleAvatarSuccess(res, file) {
@@ -69,20 +76,55 @@ export default {
             return isJPG && isLt2M;
         },
         addGood() {
-            let oo = Object.assign(this.form,{});
-            console.log(oo)
-
-            oo.state = this.form.state == "1"? true:false
+            if (this.flag === "edit") {
+                axios
+                    .get("/shop/editGood", {
+                        params: {
+                            id: this.$route.query.productId,
+                            shopname: this.$route.query.shopname,
+                            name: this.form.productName,
+                            price: this.form.salePrice,
+                            desc: this.form.desc
+                        }
+                    })
+                    .then(res => {
+                        console.log(res);
+                        if(res.data.result.state==='ok'){
+                            this.$router.push({path:'/',query:{id:res.data.result.id,shopname:this.$route.query.shopname}})
+                        }
+                    });
+            } else {
+                let oo = Object.assign(this.form, {});
+                oo.state = this.form.state == "1" ? true : false;
+                axios
+                    .get("/shop/addGood", {
+                        params: {
+                            id: this.$route.query.id,
+                            shopname: this.$route.query.shopname,
+                            name: this.form.productName,
+                            price: this.form.salePrice,
+                            desc: this.form.desc
+                        }
+                    })
+                    .then(res => {
+                        console.log(oo);
+                        // this.shopLists = res.data.result.list;
+                        console.log(res);
+                    });
+            }
+        },
+        getEditItem() {
+            let pid = this.$route.query.productId;
             axios
-                .get("/shop/addGood", {
+                .get("/shop/getEditItem", {
                     params: {
-                        id:this.$route.query.id,
-                        form:oo
+                        productId: pid,
+                        shopname: this.$route.query.shopname
                     }
                 })
                 .then(res => {
-                    // this.shopLists = res.data.result.list;
-                    console.log(res);
+                    this.form = res.data.result.obj;
+                    this.form.state = res.data.result.obj.state ? "1" : "0";
                 });
         }
     }

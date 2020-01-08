@@ -15,11 +15,11 @@ import axios from "axios";
 import FFF from "@/components/Footer.vue";
 
 export default {
-    name: "gg",
+    
     data() {
         return {
-            name: "",
-            pwd: ""
+           name:"",
+           pwd:""
         };
     },
     components: { FFF },

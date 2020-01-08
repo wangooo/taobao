@@ -32,7 +32,7 @@
                         <el-button
                             type="warning"
                             style="margin:20px 0;width:200px"
-                            @click="addGood($route.query.id)"
+                            @click="addGood($route.query.id,$route.query.shopname)"
                         >添加商品</el-button>
                         <dl class="filter-price">
                             <dt>Price:</dt>
@@ -75,15 +75,15 @@
                                             <el-button
                                                 type="primary"
                                                 style="width:45%"
-                                                @click="editGood"
+                                                @click="editGood(item,$route.query.shopname)"
                                             >编辑</el-button>
                                             <el-button
                                                 type="danger"
                                                 style="width:45%"
                                                 v-if="goodsState"
-                                                @click="changeStatues('1')"
+                                                @click="changeStatues('1',item.productId,$route.query.shopname)"
                                             >下架</el-button>
-                                            <el-button type="danger" style="width:45%" v-else @click="changeStatues('2')">上架</el-button>
+                                            <el-button type="danger" style="width:45%" v-else @click="changeStatues('0',item.productId,$route.query.shopname)">上架</el-button>
                                         </div>
                                     </div>
                                 </li>
@@ -163,14 +163,14 @@ export default {
         this.getGoodsList();
     },
     methods: {
-        addGood(id) {
+        addGood(id,name) {
             console.log(id);
-            this.$router.push({ path: "/goodForm",query:{id:id}});
+            this.$router.push({ path: "/goodForm",query:{id:id,shopname:name}});
         },
-        editGood() {
-            this.$router.push({ path: "/goodForm" });
+        editGood(item,shopname) {
+            this.$router.push({ path: "/goodForm",query:{productId:item.productId,shopname} });
         },
-        getGoodsList(flag) {
+        getGoodsList() {
             this.loading = true;
             let shopId = this.$route.query.id;
 
@@ -249,8 +249,16 @@ export default {
                     }
                 });
         },
-        changeStatues(val){
-            
+        changeStatues(state,id,name){
+            axios.get("/shop/changeGoodStatus",{
+                params:{
+                    state:state,
+                    id,
+                    shopname:name
+                }
+            }).then(res=>{
+                this.getGoodsList()
+            })
         }
     }
 };
