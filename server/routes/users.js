@@ -128,30 +128,21 @@ router.get("/clearuser",function(req,res,next){
   
 });
 router.get("/addManager", function (req, res, next) {
-
-  // console(req.query.shopname);
-  // let str = {
-  //   'name': req.query.name
-  // };
-  // Auser.remove(str, function (err, res) {
-  //   if (err) {
-  //     console.log("Error:" + err);
-  //   } else {
-  //     console.log("Res:" + res);
-  //   }
-  // })
+  console.log(req.query)
   var usr =new Auser({
       name: req.query.name,
       age: req.query.age,
       province: req.query.province,
       city: req.query.city,
-      adress: req.query.adress
+      adress: req.query.adress,
+      iden:"admin"
   })
-  usr.save(function (err, res) {
+  usr.save(function (err, resss) {
+    console.log(resss)
     if (err) {
       console.log("Error:" + err);
     } else {
-      console.log("Res:" + res);
+      console.log("Res:" + resss);
     }
   });
 

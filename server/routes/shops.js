@@ -264,9 +264,11 @@ router.get("/addGood", function (req, res, next) {
         if (reso) {
             console.log(req.query.name)
             reso.goods.push({
-                "productId": req.query.name,
+                "productId":req.query.id,
+                "productName": req.query.name,
                 "salePrice": req.query.price,
-                "state": false
+                "state": false,
+                "productImage": "9.jpg",
             });
             //   goods.push(params)
             reso.save(function (err, ress) {
@@ -301,6 +303,100 @@ router.get("/addGood", function (req, res, next) {
     // console(1111111)
 })
 
+           
+          
+    router.get("/addBlack", function (req, res, next) {
+
+      Ashop.findOne({ "shopname": req.query.shopname }),function(err,doc){
+          if(err)
+          {
+               res.json({
+                 //   shopname: '',
+                 //   order: '',
+                 //   kind: '',
+                 //   score: '',
+                 result: {
+                   state: 'notok'
+                 }
+               })
+               console.log("Error:" + err);
+          }else{
+              console.log(doc)
+              doc.updateMany({"fans.name":req.query.name},{$set:{"fans.$.state":false}}).then(ress=>{
+                  res.json({
+                      result:{
+                          state:'ok'
+                      }
+                  })
+              })
+          }
+      }
+    //   .then((reso, err) => {
+    //     if (reso) {
+           
+    //       console.log(ress);
+    //       reso.update({ "fans.name": req.query.name}, { '$set': {  "fans.$.state": false }
+    //       }),function(err,res)
+    //     //   .then(ress => {
+    //     //     //   console.log(reso.fans.state)
+    //     //     //     res.json({
+    //     //     //   //   shopname: '',
+    //     //     //   //   order: '',
+    //     //     //   //   kind: '',
+    //     //     //   //   score: '',
+    //     //     // //   result: {
+    //     //     // //     list: ress
+    //     //     // //   }
+    //     //     // })
+    //     //   })
+    //     } else console.log('error')
+    //   })
+      // console(1111111)
+     // Ashop.update({"shopname":req.query.shopname},{$set})
+    });
+
+   
+     router.get("/showFans", function (req, res, next) {
+         console.log(req.query.shopname)
+             Ashop.find({shopname:req.query.shopname}).then(ress => {
+               res.json({
+                 result: {
+                   list: ress
+                 }
+               })
+             })
+      
+     });
+    router.get("/NoBlack", function (req, res, next) {
+
+      //   let params = {
+      //     // 'productId':req.query.id,
+      //     'productName': req.query.name,
+      //     'salePrice': req.query.price,
+      //     // 'productImage':req.productImage
+      //   }
+      //console.log(req.query.shopname)
+        
+       Ashop.findOne({
+         "shopname": req.query.shopname
+       }).then((reso, err) => {
+         if (reso) {
+           // console.log(ress);
+          reso.updateOne({"fans.name":req.query.name},{set:{"state":true}}).then(ress=>{
+               res.json({
+                 //   shopname: '',
+                 //   order: '',
+                 //   kind: '',
+                 //   score: '',
+                 result: {
+                   list: ress
+                 }
+               })
+          })
+         } else console.log('error')
+       })
+      // console(1111111)
+    });
 
 
 module.exports = router;

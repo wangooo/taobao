@@ -83,8 +83,7 @@ export default {
                     //过滤数组元素
                     return (
                         value.shopname.includes(this.input3) ||
-                        value.order.includes(this.input3) ||
-                        value.kind.includes(this.input3)
+                        value.order.includes(this.input3)
                     ); //如果包含字符返回true
                 });
             } else {

@@ -51,11 +51,17 @@ export default {
                 .then(res => {
                     if (res.data.result.audit !== "super") {
                         alert("你没有权限查看此页面");
+                        this.$router.push({path:'/home'})
                         return;
                     } else {
 
             axios.get("/user/getUser").then(res => {
-                this.userList = res.data.result.list;
+                let arr = res.data.result.list.filter(item=>{
+                    if(item.iden==="admin")
+                    return item;
+                });
+                console.log(arr);
+                this.userList = arr;
             });
                     }
                 });
@@ -89,8 +95,7 @@ export default {
                     return (
                         value.name.includes(this.input1) ||
                         value.province.includes(this.input1) ||
-                        value.city.includes(this.input1) ||
-                        value.adress.includes(this.input1)
+                        value.city.includes(this.input1)
                     ); //如果包含字符返回true
                 });
             } else {

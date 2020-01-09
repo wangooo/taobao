@@ -8,7 +8,7 @@
                 <el-input type="textarea" v-model="form.desc"></el-input>
             </el-form-item>
             <el-form-item label="店主名">
-                <el-input type="input" v-model="form.order"></el-input>
+                <el-input type="input" disabled v-model="form.order"></el-input>
             </el-form-item>
             <el-form-item label="申请时间">
                 <el-input type="input" v-model="form.createTime"></el-input>
@@ -55,6 +55,9 @@ export default {
         if (this.$route.query.shopname) {
             this.getEditItem();
             this.flag = "edit";
+        }
+        else{
+                this.form.order=window.localStorage.name;
         }
     },
     methods: {
